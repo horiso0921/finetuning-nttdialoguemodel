@@ -18,6 +18,19 @@ cd finetuning-nttdialoguemodel/fairseq
 pip install --editable .
 ```
 
+### 共有されているモデルをどこに置くか
+- 学習データ
+    - 下のディレクトリ構造を参照
+- モデル
+    - 事前学習済応答生成モデル
+        - `model/base` に置く
+        - `1.6B_2lhzhoam_4.92.pt`か`empdial50k-flat_1.6B_19jce27w_3.86.pt`か`persona50k-flat_1.6B_33avog1i_4.16.pt`を置けばよいです
+        - 使用するモデル名を`setting_fine_tuning.sh`で変更するようにしてください
+
+    - spm
+        - `model/spm` に置く
+        - sp_oall_32k.{model, txt, vocab}をすべて置いてください
+
 ### ディレクトリ構造
 - data
     - 学習に必要なデータを格納するディレクトリです
@@ -57,3 +70,5 @@ pip install --editable .
             - メンテナンスしていないので動くか不明です
 
 ### 学習方法の詳細
+1. prepro_spm.pyを実行
+2. bash train_fine_tuning.shを実行
