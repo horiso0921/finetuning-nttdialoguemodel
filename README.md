@@ -12,11 +12,6 @@
 - torch>=1.5.1
 - torchvision>=0.6.1
 
-fairseqについては，このリポジトリのクローン後，以下の手順で導入してください
-```
-cd finetuning-nttdialoguemodel/fairseq
-pip install --editable .
-```
 
 ### 共有されているモデルをどこに置くか
 - 学習データ
