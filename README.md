@@ -66,4 +66,5 @@
 
 ### 学習方法の詳細
 1. prepro_spm.pyを実行
-2. bash train_fine_tuning.shを実行
+2. bash preprocess_fairseq.shを実行
+3. bash train_fine_tuning.shを実行
