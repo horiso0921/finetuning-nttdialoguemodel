@@ -10,19 +10,28 @@ which python
 python --version
 pip list
 
-. setting_fine_tuning.sh
+# python /data/group1/z44384r/finetuning-nttdialoguemodel/src/_prepro_spm_simple.py $1
+
+bash /data/group1/z44384r/finetuning-nttdialoguemodel/src/preprocess.sh $1
+
+. /data/group1/z44384r/finetuning-nttdialoguemodel/src/setting_fine_tuning.sh $1 $2 $3 $4 $5
 
 mkdir -p ${MODEL_DIR}
 
 CUDA_VISIBLE_DEVICES=${GPU} fairseq-train ${DATA_DIR} \
-  --finetune-from-model ${PRETRAINED_MODEL} \
+  --restore-file ${PRETRAINED_MODEL} \
+  --reset-dataloader \
+  --reset-lr-scheduler \
+  --reset-meters \
+  --reset-optimizer \
+  --ddp-backend no_c10d \
   --save-dir ${MODEL_DIR} \
   --seed ${SEED} \
   --source-lang ${SRC_LANG} \
   --target-lang ${TRG_LANG} \
   --arch transformer \
   --dropout 0.1 \
-  --attention-dropout 0.0 \
+  --attention-dropout 0.1 \
   --relu-dropout 0.0 \
   --encoder-embed-dim ${ENC_EMB} \
   --encoder-ffn-embed-dim ${ENC_FFN} \
@@ -34,23 +43,22 @@ CUDA_VISIBLE_DEVICES=${GPU} fairseq-train ${DATA_DIR} \
   --decoder-layers ${DEC_LAYER} \
   --decoder-attention-heads ${DEC_HEAD} \
   --decoder-normalize-before \
-  --fp16 \
+  --share-decoder-input-output-embed \
   --memory-efficient-fp16 \
-  --optimizer adam \
-  --adam-betas '(0.9, 0.98)' \
+  --optimizer adafactor \
   --lr-scheduler inverse_sqrt \
   --warmup-updates ${WARMUP_STEP} \
-  --warmup-init-lr ${INIT_LR} \
   --lr ${LR} \
-  --stop-min-lr ${MIN_LR} \
   --weight-decay 0.0 \
   --clip-norm 0.1 \
-  --patience 5 \
-  --criterion label_smoothed_cross_entropy \
-  --label-smoothing 0.1 \
+  --patience 10 \
+  --update-freq 1 \
+  --validate-interval-updates 100 \
+  --min-loss-scale=1e-10 \
+  --criterion cross_entropy \
   --log-format simple \
   --tensorboard-logdir ${TENSORBOARD_DIR} \
-  --keep-last-epochs ${KEEP_LAST_EPOCH} \
   --log-interval ${LOG_UPD} \
-  --batch-size 16 \
-  > ${MODEL_DIR}/train.log
+  --no-epoch-checkpoints \
+  --no-last-checkpoints \
+  --batch-size ${BATCH_SIZE}
