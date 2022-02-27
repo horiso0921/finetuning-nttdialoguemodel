@@ -55,20 +55,33 @@ pip install --editable .
 
 - src
     - 学習や事前準備に必要なコードがまとまっています
-        - prepro_spm.py
-            - 生データを事前処理してセンテンスピースを使ってトークナイズするスクリプトです
-        - preprocess_fairseq.sh
+        - _prepro_spm.py
+            - 生データに存在するデータすべてを対象にセンテンスピースを使ってトークナイズするスクリプトです
+            - 不老のJobから呼び出せないので注意
+        - _prepro_spm_simple.py
+            - 第一引数で受け取った名前の生データを対象にセンテンスピースを使ってトークナイズするスクリプトです
+            - **SPM，SRC_DIR，DATA_DIRのPathを必ず変えること**
+        - preprocess.sh
             - 事前処理されたデータをバイナリにするスクリプトです
+            - **PRE_DATA_DIR，AFTER_DATA_DIR，SPM_VOCAB のPathを必ず変えること**
         - setting_fine_tuning.sh
             - 学習用のパラメータを少しまとめたスクリプトです
             - モデル構造等を書きます
+            - **WORK_ROOT_DIRのPathを必ず変えること**
         - train_fine_tuning.sh
             - 学習を実行するスクリプトです
             - 学習時のパラメータはここで調節します
+            - **preprocess.sh と setting_fine_tuning.sh の Pathは必ず変えること**
         - train_sentencepiece_model.py
             - トークナイザーを学習するスクリプトです
             - メンテナンスしていないので動くか不明です
 
 ### 学習方法の詳細
-1. prepro_spm.pyを実行
-2. bash train_fine_tuning.shを実行
+1. _prepro_spm.pyを実行
+2. bash preproccess_fairseq.shを実行（**任意**）
+    - 第一引数にデータ名を入れること（RawDataのサブDirの名前）
+3. bash train_fine_tuning.shを実行
+    - 第一引数から順にデータ名，Baseにするモデル（BASE, EMP, PERのみ対応），WARMUP_STEP，BATCH_SIZE，LRを入れること
+
+### Tenosorboard
+`tensorboard --logdir .`
