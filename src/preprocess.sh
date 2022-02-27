@@ -1,17 +1,13 @@
-#!/bin/bash
-
-# Usage: bash preprocess_fairseq.sh [TRAIN PREFIX] [DEV PREFIX] [OUT PATH] [SPM VOCAB PATH]
-#  bash preprocess_fairseq.sh /home/z44384r/aoba/data/Blender/pre1/train /home/z44384r/aoba/data/Blender/pre1/valid /home/z44384r/aoba/data/Blender/pre1 /home/horiuchi/learning/ILYS-aoba-chatbot/fairseq_vocab/dict.context.txt
-DATA_NAME=sample
-PRE_DATA_DIR=../data/PreprocessedData/$DATA_NAME
-AFTER_DATA_DIR=../data/PreprocessedBinaryData/$DATA_NAME
+DATA_NAME=$1
+PRE_DATA_DIR=/data/group1/z44384r/finetuning-nttdialoguemodel/data/PreprocessedData/$DATA_NAME
+AFTER_DATA_DIR=/data/group1/z44384r/finetuning-nttdialoguemodel/data/PreprocessedBinaryData/$DATA_NAME
 TRAIN=$PRE_DATA_DIR/train
 DEV=$PRE_DATA_DIR/valid
 PRE_PROCESSED_DIR=$AFTER_DATA_DIR
-SPM_VOCAB=../spm/sp_oall_32k.txt
-
-SRC_LANG="context"
-TRG_LANG="response"
+SPM_VOCAB=/data/group1/z44384r/finetuning-nttdialoguemodel/model/spm/sp_oall_32k.txt
+rm -r $AFTER_DATA_DIR
+SRC_LANG="src"
+TRG_LANG="dst"
 N_WORKER=12
 
 echo "Train-context:" ${TRAIN}.${SRC_LANG}
