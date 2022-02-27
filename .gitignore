@@ -233,6 +233,5 @@ fabric.properties
 *.idx
 *pt*
 *.cayman
-*.model
 *.tgz
 *.zip
