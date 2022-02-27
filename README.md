@@ -72,7 +72,6 @@
             - メンテナンスしていないので動くか不明です
 
 ### 学習方法の詳細
-<<<<<<< HEAD
 1. _prepro_spm.pyを実行
 2. bash preproccess_fairseq.shを実行（**任意**）
     - 第一引数にデータ名を入れること（RawDataのサブDirの名前）
@@ -81,8 +80,3 @@
 
 ### Tenosorboard
 `tensorboard --logdir .`
-=======
-1. prepro_spm.pyを実行
-2. bash preprocess_fairseq.shを実行
-3. bash train_fine_tuning.shを実行
->>>>>>> origin/main
