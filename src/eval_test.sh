@@ -1,8 +1,8 @@
-DATA_NAME=$1
+DATA_NAME=sample
 DATA_NAME=../data/PreprocessedBinaryData/${DATA_NAME}
 
 fairseq-validate $DATA_NAME \
---path ../model/base/1.6B_2lhzhoam_4.92.pt \
+--path ../model/$1/fine_tuned_models/checkpoint_best.pt \
 --task translation \
 --source-lang src \
 --target-lang dst \

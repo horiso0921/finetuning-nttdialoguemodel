@@ -10,11 +10,8 @@ which python
 python --version
 pip list
 
-# python /data/group1/z44384r/finetuning-nttdialoguemodel/src/_prepro_spm_simple.py $1
 
-bash /data/group1/z44384r/finetuning-nttdialoguemodel/src/preprocess.sh $1
-
-. /data/group1/z44384r/finetuning-nttdialoguemodel/src/setting_fine_tuning.sh $1 $2 $3 $4 $5
+. ../src/setting_fine_tuning.sh $1 $2 $3 $4 $5
 
 mkdir -p ${MODEL_DIR}
 

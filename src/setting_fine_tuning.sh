@@ -4,7 +4,7 @@
 MODEL_NAME=$1
 BASE_MODEL_NAME="base"
 DATA_NAME=$MODEL_NAME
-WORK_ROOT_DIR="/data/group1/z44384r/finetuning-nttdialoguemodel"
+WORK_ROOT_DIR=".."
 
 # your own path (to be changed)
 WORK_DIR="$WORK_ROOT_DIR/model/${MODEL_NAME}"
@@ -14,17 +14,17 @@ DATA_DIR="$WORK_ROOT_DIR/data/PreprocessedBinaryData/$DATA_NAME"
 # 例えばNTTの事前学習済モデルなら以下のようにすること
 if [ $2 = "BASE" ]; then
     PRETRAINED_MODEL="$WORK_ROOT_DIR/model/$BASE_MODEL_NAME/1.6B_2lhzhoam_4.92.pt"
-    WORK_DIR=${WORK_DIR}_BASE
+    WORK_DIR=${WORK_DIR}
 else
     if [ $2 = "PER" ]; then
-        WORK_DIR=${WORK_DIR}_PER
+        WORK_DIR=${WORK_DIR}
         PRETRAINED_MODEL="$WORK_ROOT_DIR/model/$BASE_MODEL_NAME/persona50k-flat_1.6B_33avog1i_4.16.pt"
     else
         if [ $2 = "EMP" ]; then
-            WORK_DIR=${WORK_DIR}_EMP
+            WORK_DIR=${WORK_DIR}
             PRETRAINED_MODEL="$WORK_ROOT_DIR/model/$BASE_MODEL_NAME/empdial50k-flat_1.6B_19jce27w_3.86.pt"
         else
-            WORK_DIR=${WORK_DIR}_EMP_PER
+            WORK_DIR=${WORK_DIR}
             PRETRAINED_MODEL="$WORK_ROOT_DIR/model/$BASE_MODEL_NAME/emp_per.pt"
         fi
     fi
@@ -60,7 +60,7 @@ MIN_LR=1e-09
 WARMUP_STEP=$3
 BATCH_SIZE=$4
 LR=$5
-
+echo ${LR}
 # save & log
 KEEP_LAST_EPOCH=1
 KEEP_LAST_UPD=5

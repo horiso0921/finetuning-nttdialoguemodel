@@ -10,7 +10,7 @@ SPM = "../model/spm/sp_oall_32k.model"
 sp = spm.SentencePieceProcessor()
 sp.Load(SPM)
 
-DATANAMES = glob.glob("../data/RawData/*")
+DATANAMES = glob.glob("../data/RawData/sample")
 
 for DATANAME in DATANAMES:
     try:
@@ -23,8 +23,7 @@ for DATANAME in DATANAMES:
         if not os.path.exists(DATA_DIR):
             os.makedirs(DATA_DIR)
 
-        for name in ['train.dst', 'valid.dst', 'train.src', 'valid.src']:
-        # for name in ['test.dst', 'test.src']:
+        for name in ['train.dst', 'valid.dst', 'train.src', 'valid.src', 'test.dst', 'test.src']:
             with open(SRC_DIR+"/"+name) as f, open(DATA_DIR+"/"+name, 'w') as g:
                 for x in f:
                     x = x.strip()
