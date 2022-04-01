@@ -19,6 +19,6 @@ BATCH_SIZE=16
 dir=${SRC_NAMES}_${WARMUP_STEPS}_${BATCH_SIZE}_${LR}
 mkdir -p ${dir}
 bash ../src/preprocess.sh $SRC_NAMES > ${dir}/preprocess_`date "+%Y%m%d-%H%M"`.log 2> ${dir}/preprocess_error_`date "+%Y%m%d-%H%M"`.log
-bash ../src/train_fine_tuning.sh $SRC_NAMES "BASE" $WARMUP_STEPS $batch $LR > ${dir}/train_`date "+%Y%m%d-%H%M"`.log 2> ${dir}/train_error_`date "+%Y%m%d-%H%M"`.log
+bash ../src/train_fine_tuning.sh $SRC_NAMES "BASE" $WARMUP_STEPS $ $LR > ${dir}/train_`date "+%Y%m%d-%H%M"`.log 2> ${dir}/train_error_`date "+%Y%m%d-%H%M"`.log
 
 bash ../src/eval_test.sh ${dir} > ${dir}/test_`date "+%Y%m%d-%H%M"`.log 2> ${dir}/test_error_`date "+%Y%m%d-%H%M"`.log
